@@ -1,4 +1,4 @@
-#VRML_SIM R2023b utf8
+#VRML_SIM R2025a utf8
 
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
@@ -11,8 +11,8 @@ WorldInfo {
   basicTimeStep 16
 }
 Viewpoint {
-  orientation 0.20377896066120946 -0.4483551780904121 -0.8703170511206547 5.320643296830885
-  position -0.970725992739835 -1.1835758125600102 0.6472952136187511
+  orientation 0.2978583879286381 -0.3976897916059696 -0.8678267168006257 4.859150179805329
+  position -0.5732758724950887 -1.2177504794695788 0.9605061967507862
 }
 TexturedBackground {
 }
@@ -23,36 +23,42 @@ RectangleArena {
   wallHeight 0.05
 }
 WoodenBox {
-  translation -0.15418 0.2 0.05
-  rotation 0 0 -1 0.3468
+  translation -0.15418 0.2 0.049960760000000014
+  rotation -1.7685263204279498e-16 4.7416690498295565e-17 -1 0.34679999999999994
   size 0.1 0.1 0.1
   mass 0.2
 }
 WoodenBox {
-  translation -0.0793186 0.0719044 0.05
-  rotation 0 0 -1 0.3468
+  translation -0.0793186 0.0719044 0.049960760000000014
+  rotation 5.2467188525660173e-17 1.0326294210630299e-16 -1 0.34679999999999994
   name "wooden box(1)"
   size 0.1 0.1 0.1
   mass 0.2
 }
 WoodenBox {
-  translation 0.2316 -0.2296 0.05
-  rotation 0 0 -1 0.34688418883387256
+  translation 0.23159950329751175 -0.2296000252117595 0.049960760000000014
+  rotation 8.073743823387666e-17 -1.3369783833594548e-16 -1 0.3468814907572098
   name "wooden box(2)"
   size 0.1 0.1 0.1
   mass 0.2
 }
 WoodenBox {
-  translation -0.0881443 -0.114 0.05
-  rotation 0 0 -1 0.34688418883387256
+  translation -0.0881443 -0.114 0.049960760000000014
+  rotation -2.3950028003258632e-17 -1.9871258567631396e-17 -1 0.34688418883387256
   name "wooden box(3)"
   size 0.1 0.1 0.1
   mass 0.2
 }
 E-puck {
-  translation -0.33 -0.29 0
-  rotation 0 0 1 1.309
-  controller "Obstacle_epuck"
+  hidden position_0_0 587.633227496662
+  hidden position_0_1 565.7339175672641
+  hidden rotation_1 0 -0.9999999999999999 0 2.9861913782191127
+  hidden rotation_2 0 1 0 0.2472399211013604
+  translation -0.350757 -0.373255 0.000196408
+  rotation 0.0022833700168987114 0.0008783000065001022 0.9999970074007545 0.73441
+  controller "my_controller"
+  camera_width 124
+  camera_height 75
   turretSlot [
     Compass {
     }
@@ -61,6 +67,6 @@ E-puck {
   ]
 }
 Ball {
-  translation 0.34 0.31 0.06
+  translation 0.34 0.31 0.03245683599999999
   color 0.666667 0 0
 }
