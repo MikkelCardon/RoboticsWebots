@@ -39,15 +39,66 @@ def checkForRed():
     height = camera.getHeight()
     
     x = width // 2   # center pixel
-    y = height // 2
-
-    red   = camera.imageGetRed(image, width, x, y)
-    green = camera.imageGetGreen(image, width, x, y)
-    blue  = camera.imageGetBlue(image, width, x, y)
+    y = height // 2 # center pixel
     
-    if red > 150 and green < 100 and blue < 100:
+    red_count = 0
+    
+    for yDiff in range(-10, 10):
+        for xDiff in range(-10, 10):
+            r = camera.imageGetRed(image, width, x + xDiff, y + yDiff)
+            g = camera.imageGetGreen(image, width, x + xDiff, y + yDiff)
+            b = camera.imageGetBlue(image, width, x + xDiff, y + yDiff)
+
+            h, s, v = rgb_to_hsv(r, g, b)
+
+            # Red detection in HSV
+            # Hue around 0° (or 360°) ±20°, saturation and value thresholds
+            if ((h <= 15 or h >= 345) and s > 0.6 and v > 0.3):
+                red_count += 1
+
+    if red_count > 5:
+        print("Red count: ", red_count)
+
+    if red_count > 10:     
         print("Red detected - stopping")
         red_found = True
+
+def rgb_to_hsv(r, g, b):
+    """Convert RGB (0-255) to HSV (0-360°, 0-1, 0-1)."""
+    r_, g_, b_ = r / 255.0, g / 255.0, b / 255.0
+    cmax = max(r_, g_, b_)
+    cmin = min(r_, g_, b_)
+    delta = cmax - cmin
+
+    # Hue calculation
+    if delta == 0:
+        h = 0
+    elif cmax == r_:
+        h = 60 * (((g_ - b_) / delta) % 6)
+    elif cmax == g_:
+        h = 60 * (((b_ - r_) / delta) + 2)
+    else:
+        h = 60 * (((r_ - g_) / delta) + 4)
+
+    # Saturation
+    s = 0 if cmax == 0 else delta / cmax
+
+    # Value
+    v = cmax
+
+    return h, s, v
+
+def driveForward():
+    print("Driving towards target")
+    leftMotor.setVelocity(MAX_SPEED * 0.5)
+    rightMotor.setVelocity(MAX_SPEED * 0.5)
+
+    while robot.step(TIME_STEP) != -1:
+        if(ps[0].getValue() > 80.0 or ps[1].getValue() > 80.0 or ps[7].getValue() > 80.0 or ps[6].getValue() > 80.0):
+            print("Arrived at target destination")
+            leftMotor.setVelocity(0)
+            rightMotor.setVelocity(0)
+            break
 
 
 
@@ -59,6 +110,7 @@ while robot.step(TIME_STEP) != -1:
     if red_found:
         leftMotor.setVelocity(0.0)
         rightMotor.setVelocity(0.0)
+        driveForward()
         break
         
     # read sensors outputs
